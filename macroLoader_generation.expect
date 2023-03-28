@@ -1,0 +1,28 @@
+#!/usr/bin/expect -f
+
+#Install 'expect' via '$ sudo apt-get install expect'
+#Check its location via '$ whereis expect', and put the location in the shebang
+
+#This script ought to be executed from the linux terminal, not the ROOT one
+
+sleep 0.5
+spawn -noecho root -l
+sleep 1
+
+send -- gROOT->LoadMacro("./generation/ParticleType.cpp+")\r
+
+expect "(int) 0\r"
+send -- gROOT->LoadMacro("./generation/ResonanceType.cpp+")\r
+#sleep 1
+
+expect "(int) 0\r"
+send -- gROOT->LoadMacro("./generation/Particle.cpp+")\r
+#sleep 1
+
+expect "(int) 0\r"
+send -- gROOT->LoadMacro("./generation/macro_ParticleGeneration.cpp+")\r
+
+interact
+
+
+#Note: quitting ROOT (via .q) also exits the expect process
